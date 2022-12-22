@@ -6,7 +6,7 @@ int smallprime(int max_prime){
     int i, j;
     int found = 1;
     int *primes;
-    if ((primes = malloc(max_prime * sizeof(int))) == NULL){
+    if ((primes = malloc(max_prime * sizeof(int) << 1)) == NULL){
         fprintf(stderr, "Out of memory!\n");
         exit(EXIT_FAILURE);
     }
