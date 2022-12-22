@@ -1,4 +1,4 @@
-project(snipets_c LANGUAGES C)
+project(utils_c LANGUAGES C)
 
 
 add_executable(primelist primelist.c)
