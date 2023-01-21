@@ -20,6 +20,8 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <assert.h>
+#include <gmp.h>
+
 /*
  * 
  * Fast invert by modulo 2^e  O(e)
@@ -33,13 +35,31 @@ uint64_t invert2exp(uint64_t a, short exp){
     if (!(a & 1)) return 0; // no inversion for even value
     for (unsigned i=2; i<=exp; i++){
         if ((t & mask) != 1){
-            r += mod;
+            r |= mod;
             t = r * a;
         }
         mod <<= 1;
         mask = (mask << 1) | 1;
     }
     return r;
+}
+
+/*
+ * Idem for GMP library
+ */
+int mpz_invert_2exp(mpz_t rop, mpz_t a, short exp){
+    mpz_t t;
+    if (mpz_even_p(a)) return 0; // not invert
+    mpz_set_ui(rop, 1);
+    mpz_init_set(t, a);
+    for (unsigned i=2; i<=exp; i++){
+        if (mpz_scan1(t, 1) < i){ // (t & mask) != 1
+            mpz_setbit(rop, i-1); // mpz_ior(rop, rop, mod); 
+            mpz_mul(t, rop, a);
+        }
+    }
+    mpz_clear(t);
+    return 1;
 }
 
 /*
@@ -63,5 +83,15 @@ int main(){
     assert(invert2exp(79, 7) == 47);
     
     assert(invert2n(131, 1579, 11)==3627); // 1/131 mod 2**12
+    
+    mpz_t res, test;
+    
+    mpz_init_set_ui(test, 131);
+    mpz_init(res);
+    
+    mpz_invert_2exp(res, test, 11);
+    gmp_printf("%Zd\n", res);
+    mpz_clears(res,test, NULL);
+    
     puts("passed");
 }
