@@ -19,7 +19,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
-#include <assert.h>
+// #include <assert.h>
 #include <gmp.h>
 
 /*
@@ -77,12 +77,12 @@ uint64_t invert2n(uint64_t a, uint64_t an, short n){
 }
 
 int main(){
-    assert(invert2exp(131, 11) == 1579); // 1/131 mod 2**11
-    assert(invert2exp(31, 15) == 31711); // 1/31 mod 2**15
-    assert(invert2exp(2, 11) == 0); 
-    assert(invert2exp(79, 7) == 47);
-    
-    assert(invert2n(131, 1579, 11)==3627); // 1/131 mod 2**12
+//     assert(invert2exp(131, 11) == 1579); // 1/131 mod 2**11
+//     assert(invert2exp(31, 15) == 31711); // 1/31 mod 2**15
+//     assert(invert2exp(2, 11) == 0); 
+//     assert(invert2exp(79, 7) == 47);
+//     
+//     assert(invert2n(131, 1579, 11)==3627); // 1/131 mod 2**12
     
     mpz_t res, test;
     

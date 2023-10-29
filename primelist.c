@@ -18,12 +18,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int smallprime(int max_prime){
+unsigned smallprime(unsigned max_prime){
     //Small prime number generator
-    int i, j;
-    int found = 1;
-    int *primes;
-    if ((primes = malloc(max_prime * sizeof(int) << 1)) == NULL){
+    unsigned i, j;
+    unsigned found = 1;
+    unsigned *primes;
+    if ((primes = malloc(max_prime * sizeof(unsigned) >> 1)) == NULL){
         fprintf(stderr, "Out of memory!\n");
         exit(EXIT_FAILURE);
     }
@@ -49,7 +49,7 @@ next: 1;
 }
 
 int main(int argc, char **argv){
-    int limit;
+    unsigned limit;
     if (argc > 1 && (limit = atoi(argv[1])) > 0)
         smallprime(limit);
     else
